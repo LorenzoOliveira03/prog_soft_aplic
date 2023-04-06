@@ -2,11 +2,22 @@ package com.example.springboot.entities;
 
 import java.util.Arrays;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Discipline {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String code;
     private String name;
     private String[] horarios;
     private int[] turmas;
+
+    protected Discipline() {}
 
     public Discipline(String code, String name, String[] horarios, int[] turmas){
         this.code = code;

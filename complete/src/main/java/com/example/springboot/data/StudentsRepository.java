@@ -1,31 +1,14 @@
 package com.example.springboot.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.springboot.entities.Student;
 
-public class StudentsRepository{
-    private static List<Student> students = new ArrayList<>();
+import java.util.List;
 
-    public static List<Student> getAllStudents(){
-        return students;
-    }
+import org.springframework.data.repository.CrudRepository;
 
-    public static void addStudent(Student student){
-        students.add(student);
-    }
+public interface StudentsRepository extends CrudRepository<Student, Long>{
 
-    public static void removeStudent(Student student){
-        students.remove(student);
-    }
+    List<Student> findByName(String name);
 
-    public static Student getStudent(String matricula){
-        for(Student student : students){
-            if(student.getMatricula().equals(matricula)){
-                return student;
-            }
-        }
-        return null;
-    }
+	Student findByMatricula(Long id);
 }

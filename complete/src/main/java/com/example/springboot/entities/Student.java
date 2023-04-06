@@ -1,10 +1,21 @@
 package com.example.springboot.entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Student {
-    private String matricula;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long matricula;
     private String name;
     private String doc;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+
+    protected Student() {}
 
     public Student(String name, String doc, Address address) {
         this.name = name;
@@ -28,11 +39,11 @@ public class Student {
         this.address = address;
     }
 
-    public String getMatricula() {
+    public Long getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(String matricula) {
+    public void setMatricula(Long matricula) {
         this.matricula = matricula;
     }
 

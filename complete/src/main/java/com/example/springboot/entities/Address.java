@@ -1,12 +1,24 @@
 package com.example.springboot.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String street;
     private String city;
     private String state;
     private String zip;
     private String country;
     private int number;
+
+    protected Address() {}
 
     public Address(String street, String city, String state, String zip, String country, int number) {
         this.street = street;
