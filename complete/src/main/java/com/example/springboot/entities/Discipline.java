@@ -2,28 +2,36 @@ package com.example.springboot.entities;
 
 import java.util.Arrays;
 
+import io.micrometer.common.lang.Nullable;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "disciplines")
 public class Discipline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @Column(name = "code", nullable = false)
     private String code;
+    @Column(name = "name", nullable = false)
     private String name;
-    private String[] horarios;
-    private int[] turmas;
+    
+    @Nullable
+    @OneToMany(mappedBy = "discipline")
+    private Turma[] turmas;
 
     protected Discipline() {}
 
-    public Discipline(String code, String name, String[] horarios, int[] turmas){
+    public Discipline(String code, String name){
         this.code = code;
         this.name = name;
-        this.horarios = horarios;
-        this.turmas = turmas;
     }
 
     public String getCode(){
@@ -34,29 +42,35 @@ public class Discipline {
         return this.name;
     }
 
-    public String[] getHorarios(){
-        return this.horarios;
+    public Long getId(){
+        return this.id;
     }
 
-    public void setHorarios(String[] horarios) {
-        this.horarios = horarios;
+    public void setId(Long id){
+        this.id = id;
     }
 
-    public int[] getTurmas(){
-        return this.turmas;
+    public boolean AddTurma(Turma turma){
+        if (turmas == null){
+            turmas = new Turma[1];
+            turmas[0] = turma;
+            return true;
+        }
+        else{
+            int length = turmas.length;
+            turmas = Arrays.copyOf(turmas, length + 1);
+            turmas[length] = turma;
+            return true;
+        }
     }
 
-    public void setTurmas(int[] turmas) {
-        this.turmas = turmas;
-    }
 
     @Override
     public String toString() {
         return "Discipline{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", horarios=" + Arrays.toString(horarios) +
-                ", turmas=" + Arrays.toString(turmas) +
+                ", turma=" + turmas +
                 '}';
     }
 }

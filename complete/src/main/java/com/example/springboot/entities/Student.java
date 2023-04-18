@@ -3,21 +3,28 @@ package com.example.springboot.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "students")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long matricula;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "doc", nullable = false)
     private String doc;
+    @Column(name = "address", nullable = false)
+    private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    @ManyToMany
+    @JoinTable(name = "student_turma",
+            joinColumns = @JoinColumn(name = "student_matricula"),
+            inverseJoinColumns = @JoinColumn(name = "turma_id"))
+    private Turma[] turmas;
 
     protected Student() {}
 
-    public Student(String name, String doc, Address address) {
+    public Student(String name, String doc, String address) {
         this.name = name;
         this.doc = doc;
         this.address = address;
@@ -31,11 +38,11 @@ public class Student {
         return doc;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
