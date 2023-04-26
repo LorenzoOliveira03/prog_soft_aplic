@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springboot.data.StudentsRepository;
-import com.example.springboot.entities.Student;
+import com.example.springboot.Entity.Student;
+import com.example.springboot.Repository.StudentsRepository;
  
 @RestController
 public class PostStudentController {

@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springboot.data.DisciplinesRepository;
-import com.example.springboot.entities.Discipline;
+import com.example.springboot.Entity.Discipline;
+import com.example.springboot.Repository.DisciplinesRepository;
 
+@RestController
 public class GetAllDisciplineController {
     private final DisciplinesRepository disciplinesRepository;
 
